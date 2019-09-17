@@ -6,7 +6,7 @@ from player import RandomBot, Player, MyPolicy
 
 def run():
     # 设置棋盘维度
-    BOARD_DIMENSION = 19
+    BOARD_DIMENSION = 21
     print('Welcome to Keavnn\'s Connect6.')
     print('Choose now_player slot. (1=Player 2=AI)')
     
@@ -67,6 +67,9 @@ def loop(env, players):
                     sys.exit()
 
             state = env.step(x, y)
+            env.sendBoardtoUnity()
+            #time.sleep(1)
+            #print(env.)
             states[now_player][-1] = state
             move_step += 1
             if wins[now_player] - wins[(now_player + 1)%2] < 6:
@@ -100,4 +103,3 @@ def loop(env, players):
 
 if __name__ == '__main__':
     run()
-    

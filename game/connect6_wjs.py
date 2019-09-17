@@ -1,10 +1,21 @@
 import numpy as np
 from .connect6 import Connect6
+import socket
+import json
 
 class Connect6WJS(Connect6):
 
     def __init__(self, dim):
         super().__init__(dim)
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.server.bind(('58.199.160.185', 9999))
+
+    def sendBoardtoUnity(self):
+        #data = np.array([[board[i+j*self.dim] for i in range(self.dim)] for j in range(self.dim)])
+        #board = np.array(board).reshape(self.dim, self.dim)
+        data = self.board
+        #print(self.board)
+        self.server.sendto(json.dumps(data.tolist()).encode('utf-8'), ('58.199.160.185',8888))
 
     def reset(self):
         super().reset()
